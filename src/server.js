@@ -1,19 +1,23 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const cors = require('cors')
 const PORT = process.env.PORT || 4000
 
 app.use(express.json())
 app.use(cors())
 
-// Cria o pool de conexões. As configurações específicas do pool são os padrões
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'containers-us-west-178.railway.app',
   user: 'root',
-  password: 'WILIETE123',
-  database: 'estudando_crud'
+  password: 'Fp8Jo49nNb2D3UrWqM99',
+  database: 'railway',
+  port: 7039,
+  authPlugins: {
+    mysql_clear_password: () => () => Buffer.from('\0' + 'Fp8Jo49nNb2D3UrWqM99')
+  }
 })
+
 db.connect(err => {
   if (err) {
     console.error('Erro ao conectar ao banco de dados: ', err)
